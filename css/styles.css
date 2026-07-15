@@ -1,0 +1,380 @@
+/* ============================================================
+   Inspeções de conformidade Técnica/NR-10 — Nord Consult
+   Layout clean: fundo branco com a logo centralizada como
+   marca-d'água, paleta laranja da marca, botões compactos e
+   alvos de toque adequados também para caneta capacitiva
+   (mín. 44px, bom espaçamento, sem interações dependentes
+   de hover ou gestos complexos).
+   ============================================================ */
+
+:root {
+  --laranja: #f08019;        /* laranja da logo: destaques, bordas, selos */
+  --laranja-forte: #c25e00;  /* laranja escuro: botões com texto branco  */
+  --laranja-suave: #fdf3e7;  /* fundo de apoio                            */
+  --grafite: #2b2f36;        /* texto principal                           */
+  --cinza: #6b7280;          /* texto secundário                          */
+  --borda: #e5e7eb;
+  --vermelho: #b3261e;       /* NCs e ações destrutivas                   */
+  --verde: #2e7d32;
+  --branco: #ffffff;
+  --sombra: 0 1px 3px rgba(43, 47, 54, 0.10);
+  --raio: 10px;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--branco);
+  color: var(--grafite);
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Logo Nord Consult centralizada como marca-d'água em todas as telas */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background: url('../icons/logo-nord.png') no-repeat center center;
+  background-size: min(68vw, 400px);
+  opacity: 0.06;
+  pointer-events: none;
+}
+
+#app {
+  position: relative;
+  z-index: 1;
+  max-width: 680px;
+  margin: 0 auto;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.carregando {
+  padding: 3rem 1rem;
+  text-align: center;
+  color: var(--cinza);
+}
+
+/* ---------- Cabeçalho ---------- */
+.cabecalho {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: var(--branco);
+  color: var(--grafite);
+  padding: 0.5rem 0.75rem;
+  padding-top: calc(0.5rem + env(safe-area-inset-top));
+  border-bottom: 3px solid var(--laranja);
+}
+
+.cabecalho h1 {
+  font-size: 1.05rem;
+  margin: 0;
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.cabecalho .subtitulo {
+  display: block;
+  font-size: 0.78rem;
+  font-weight: 400;
+  color: var(--cinza);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.btn-voltar {
+  min-width: 44px;
+  min-height: 44px;
+  border: none;
+  background: transparent;
+  color: var(--laranja-forte);
+  font-size: 1.5rem;
+  border-radius: var(--raio);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+.btn-voltar:active { background: var(--laranja-suave); }
+
+/* ---------- Conteúdo ---------- */
+.conteudo {
+  flex: 1;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+h2 {
+  font-size: 0.82rem;
+  margin: 0.3rem 0 0;
+  color: var(--cinza);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-weight: 600;
+}
+
+/* ---------- Botões ---------- */
+button { font-family: inherit; }
+
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+  min-height: 48px;
+  padding: 0.6rem 1rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: var(--raio);
+  cursor: pointer;
+  box-shadow: var(--sombra);
+  touch-action: manipulation;
+}
+.btn:active { transform: scale(0.99); filter: brightness(0.94); }
+.btn:disabled {
+  background: #eceef1 !important;
+  color: #9aa2ad !important;
+  border-color: #eceef1 !important;
+  box-shadow: none;
+  cursor: not-allowed;
+}
+
+.btn-primario { background: var(--laranja-forte); color: var(--branco); }
+.btn-destaque { background: var(--laranja-forte); color: var(--branco); }
+.btn-perigo   { background: var(--vermelho); color: var(--branco); }
+.btn-nc {
+  background: var(--vermelho);
+  color: var(--branco);
+  min-height: 56px;
+  font-size: 1.05rem;
+}
+.btn-secundario {
+  background: var(--branco);
+  color: var(--laranja-forte);
+  border: 1.5px solid var(--laranja);
+  box-shadow: none;
+}
+.btn-discreto {
+  background: transparent;
+  color: var(--cinza);
+  border: none;
+  box-shadow: none;
+  min-height: 44px;
+  font-weight: 500;
+  text-decoration: underline;
+}
+
+.btn-grande { min-height: 56px; font-size: 1.05rem; }
+.btn .icone { font-size: 1.25rem; line-height: 1; }
+
+/* ---------- Formulários ---------- */
+label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+  font-size: 0.95rem;
+}
+
+input[type="text"], textarea, select {
+  width: 100%;
+  min-height: 46px;
+  padding: 0.55rem 0.75rem;
+  font-size: 1rem;
+  font-family: inherit;
+  color: var(--grafite);
+  background: var(--branco);
+  border: 1.5px solid var(--borda);
+  border-radius: var(--raio);
+}
+input:focus, textarea:focus {
+  outline: 2px solid var(--laranja);
+  outline-offset: 1px;
+  border-color: var(--laranja);
+}
+textarea { resize: vertical; min-height: 100px; }
+
+.linha-form { display: flex; gap: 0.5rem; }
+.linha-form input { flex: 1; }
+.linha-form .btn { width: auto; min-width: 88px; }
+
+/* ---------- Listas (cartões) ---------- */
+.lista { display: flex; flex-direction: column; gap: 0.5rem; }
+
+.cartao {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  width: 100%;
+  min-height: 52px;
+  padding: 0.6rem 0.8rem;
+  background: var(--branco);
+  border: 1.5px solid var(--borda);
+  border-radius: var(--raio);
+  text-align: left;
+  font-size: 0.98rem;
+  cursor: pointer;
+  box-shadow: var(--sombra);
+}
+.cartao:active { border-color: var(--laranja); background: var(--laranja-suave); }
+.cartao .titulo { font-weight: 600; display: block; }
+.cartao .detalhe { display: block; font-size: 0.8rem; color: var(--cinza); margin-top: 1px; }
+.cartao .principal { flex: 1; min-width: 0; }
+.cartao .seta { color: var(--laranja); font-size: 1.2rem; flex-shrink: 0; }
+
+.selo {
+  flex-shrink: 0;
+  background: var(--laranja-forte);
+  color: var(--branco);
+  border-radius: 999px;
+  padding: 0.15rem 0.6rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+.selo-nc { background: var(--vermelho); }
+
+.vazio {
+  text-align: center;
+  color: var(--cinza);
+  padding: 1rem 0.5rem;
+  font-size: 0.9rem;
+}
+
+/* ---------- Grade de fotos ---------- */
+.grade-fotos {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(88px, 1fr));
+  gap: 0.5rem;
+}
+.grade-fotos .miniatura {
+  position: relative;
+  aspect-ratio: 1;
+  border: 1.5px solid var(--borda);
+  border-radius: var(--raio);
+  overflow: hidden;
+  padding: 0;
+  background: var(--laranja-suave);
+  cursor: pointer;
+}
+.grade-fotos .miniatura:active { border-color: var(--laranja); }
+.grade-fotos img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* ---------- Visualizador de foto ---------- */
+.visor-foto {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  background: rgba(0, 0, 0, 0.94);
+  display: flex;
+  flex-direction: column;
+}
+.visor-foto img {
+  flex: 1;
+  min-height: 0;
+  object-fit: contain;
+  width: 100%;
+}
+.visor-foto .acoes {
+  display: flex;
+  gap: 0.5rem;
+  padding: 0.75rem;
+  padding-bottom: calc(0.75rem + env(safe-area-inset-bottom));
+}
+
+/* ---------- Áudio ---------- */
+.item-audio {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--branco);
+  border: 1.5px solid var(--borda);
+  border-radius: var(--raio);
+  padding: 0.4rem 0.5rem;
+}
+.item-audio audio { flex: 1; min-width: 0; height: 40px; }
+.item-audio .btn { width: auto; min-width: 46px; min-height: 44px; padding: 0.35rem; }
+
+.gravando { animation: pulsar 1s infinite; }
+@keyframes pulsar {
+  0%, 100% { filter: brightness(1); }
+  50% { filter: brightness(1.35); }
+}
+
+/* ---------- Rodapé / info ---------- */
+.info-armazenamento {
+  text-align: center;
+  font-size: 0.8rem;
+  color: var(--cinza);
+  padding: 0.5rem 0 1rem;
+}
+
+.aviso-persistencia { color: var(--vermelho); font-weight: 600; }
+
+/* ---------- Toast ---------- */
+#toast {
+  position: fixed;
+  left: 50%;
+  bottom: calc(20px + env(safe-area-inset-bottom));
+  transform: translateX(-50%) translateY(16px);
+  z-index: 100;
+  background: var(--grafite);
+  color: var(--branco);
+  padding: 0.55rem 1.1rem;
+  border-radius: 999px;
+  font-size: 0.92rem;
+  font-weight: 500;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s, transform 0.2s;
+  max-width: 92vw;
+  text-align: center;
+}
+#toast.visivel { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+/* ---------- Tela de identificação ---------- */
+.tela-identificacao {
+  justify-content: center;
+  text-align: center;
+  gap: 1.1rem;
+  padding: 2rem 1.25rem;
+}
+.tela-identificacao .logo-marca {
+  width: min(60vw, 260px);
+  margin: 0 auto;
+  display: block;
+}
+.tela-identificacao h1 {
+  color: var(--grafite);
+  font-size: 1.2rem;
+  line-height: 1.35;
+  margin: 0;
+}
+.tela-identificacao p { color: var(--cinza); margin: 0; font-size: 0.95rem; }
+.tela-identificacao form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  text-align: left;
+}
